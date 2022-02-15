@@ -8,8 +8,8 @@ import os
 class Dataset(torch.utils.data.Dataset):
 
   def __init__(self, data_dir, data_type='both', nch=3, transform=[]):
-    self.data_dir_a = data_dir + 'trainA/'
-    self.data_dir_b = data_dir + 'trainB/'
+    self.data_dir_a = data_dir + 'testA/'
+    self.data_dir_b = data_dir + 'testB/'
     self.transform = transform
     self.data_type = data_type
     self.nch = nch

@@ -12,13 +12,13 @@ from dataset import *
 # test
 # HyperParameters
 lr = 0.0002
-batch_size = 1
+batch_size = 2
 image_size = 256
 in_channels_img = 3
 out_channels_img = 3
 num_epoch = 200
 wgt_ident = 0.5
-wgt_cycle = 1
+wgt_cycle = 10
 
 features_d = 64
 features_g = 64
@@ -56,8 +56,8 @@ cri_GAN = torch.nn.BCEWithLogitsLoss().to(device)
 cri_cycle = torch.nn.L1Loss().to(device)
 cri_identity = torch.nn.L1Loss().to(device)
 
-writer_test_image = SummaryWriter(f'./runs/horse2zebra/test/image')
-writer_test_loss = SummaryWriter(f'./runs/horse2zebra/test/loss')
+writer_test_image = SummaryWriter(f'./runs/horse2zebra/test_10/image')
+writer_test_loss = SummaryWriter(f'./runs/horse2zebra/test_10/loss')
 
 netG_A2B.load_state_dict(torch.load('./Save_model/netG_A2B.pt'))
 netG_B2A.load_state_dict(torch.load('./Save_model/netG_B2A.pt'))
@@ -142,6 +142,8 @@ with torch.no_grad():
         writer_test_image.add_images('output_a', output_A, i, dataformats='NHWC')
         writer_test_image.add_images('input_b', input_B,  i, dataformats='NHWC')
         writer_test_image.add_images('output_b', output_B,  i, dataformats='NHWC')
+        writer_test_image.add_images('reout_a', reout_A,  i, dataformats='NHWC')
+        writer_test_image.add_images('reout_b', reout_B,  i, dataformats='NHWC')
         
 print(f' Batch : {i}\
             GAN   A2B : {np.mean(loss_G_a2b_test):.4f}, B2A : {np.mean(loss_G_b2a_test):.4f} \

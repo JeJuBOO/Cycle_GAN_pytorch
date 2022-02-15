@@ -58,6 +58,13 @@ cri_identity = torch.nn.L1Loss().to(device)
 
 writer_train_image = SummaryWriter(f'runs/horse2zebra/train/image')
 writer_train_loss = SummaryWriter(f'runs/horse2zebra/train/loss')
+
+
+netG_A2B.load_state_dict(torch.load('./Save_model/netG_A2B.pt'))
+netG_B2A.load_state_dict(torch.load('./Save_model/netG_B2A.pt'))
+netD_A.load_state_dict(torch.load('./Save_model/netD_A.pt'))
+netD_B.load_state_dict(torch.load('./Save_model/netD_B.pt'))
+
 for epoch in range(num_epoch):
     # training
     netG_A2B.train()
@@ -173,10 +180,10 @@ for epoch in range(num_epoch):
     writer_train_loss.add_scalar('Ident B loss train', np.mean(loss_Iden_b_train), epoch)
 
     # Save models checkpoints
-    torch.save(netG_A2B.state_dict(), 'Save_Model/netG_A2B.pt')
-    torch.save(netG_B2A.state_dict(), 'Save_Model/netG_B2A.pt')
-    torch.save(netD_A.state_dict(), 'Save_Model/netD_A.pt')
-    torch.save(netD_B.state_dict(), 'Save_Model/netD_B.pt')
+    torch.save(netG_A2B.state_dict(), 'Save_Model/netG_A2B_400.pt')
+    torch.save(netG_B2A.state_dict(), 'Save_Model/netG_B2A_400.pt')
+    torch.save(netD_A.state_dict(), 'Save_Model/netD_A_400.pt')
+    torch.save(netD_B.state_dict(), 'Save_Model/netD_B_400.pt')
     
 writer_train_loss.close()
 writer_train_image.close()  
